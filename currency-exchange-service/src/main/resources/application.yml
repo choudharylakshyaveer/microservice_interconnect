@@ -1,0 +1,53 @@
+
+spring:
+  config:
+    import: configserver:http://localhost:8888
+  application:
+    name: currency-exchange
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/microservices_interconnect
+    username: root
+    password: mysql
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      data-locations:
+        - classpath:static/data.sql
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+resilience4j:
+  retry:
+    instances:
+      sample-api:
+        maxAttempts: 5
+        waitDuration: 1s
+        enableExponentialBackoff: true
+  ratelimiter:
+    instances:
+      default:
+        limitForPeriod: 2
+        limitRefreshPeriod: 10s
+  bulkhead:
+    instances:
+      default:
+        maxConcurrentCalls: 10
+
+
+
+#    properties:
+#      hibernate:
+#        dialect: MySQL8Dialect
+
+
+server:
+  port: 8000

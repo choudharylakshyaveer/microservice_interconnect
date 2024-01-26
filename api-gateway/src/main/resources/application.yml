@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: currency-exchange
+          uri: lb://CURRENCY-EXCHANGE
+          #/currency-exchange/from/USD/to/INR
+          predicates:
+            - Path=/currency-exchange/from/USD/to/INR
+server:
+  port: 8765
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+
+
+
