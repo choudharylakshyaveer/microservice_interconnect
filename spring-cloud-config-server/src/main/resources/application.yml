@@ -15,7 +15,7 @@ spring:
           refresh-rate: 1
         default-label: dev
         native:
-          search-locations: file:///G:/microservices/microservices_workspace/microservice_interconnect/git-localconfig-repo
+          search-locations: file:///G:/microservices/microservices_workspace/microservice_interconnect
 management:
   endpoint:
   endpoints:
